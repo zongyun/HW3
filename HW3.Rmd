@@ -1,18 +1,10 @@
----
-title: "NBA 2014-2015球季 各隊分析"
-output: github_document
----
+#NBA 2014-2015球季 各隊分析
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-##把資料讀進來的程式碼
 library(SportsAnalytics)
 NBA1415<-fetch_NBAPlayerStatistics("14-15")
 
-#各隊最辛苦的球員
-##計算依據為出戰分鐘數最多的球員
+##各隊最辛苦的球員
+###計算依據為出戰分鐘數最多的球員
 
 
 MaxTotalMinutesPlayed<-aggregate(TotalMinutesPlayed~Team,NBA1415,max)
@@ -22,7 +14,7 @@ output<-NBA1415MaxTotalMinutesPlayed[order(NBA1415MaxTotalMinutesPlayed$TotalMin
 library(knitr)
 kable(output, digits=2)
 
-## 圖表
+### 圖表
 
 |   |Team |Name             | TotalMinutesPlayed|
 |:--|:----|:----------------|------------------:|
@@ -57,8 +49,8 @@ kable(output, digits=2)
 |14 |LAL  |Wesley Johnson   |               2244|
 |20 |NYK  |Shane Larkin     |               1864|
 
-#各隊得分王
-##計算依據為總得分最多的球員
+##各隊得分王
+###計算依據為總得分最多的球員
 MaxPoint<-aggregate(TotalPoints~Team,NBA1415,max)
 NBA1415MaxPoint<-merge(NBA1415,MaxPoint)
 output<-NBA1415MaxPoint[order(NBA1415MaxPoint$TotalPoints,decreasing = T)
@@ -66,7 +58,7 @@ output<-NBA1415MaxPoint[order(NBA1415MaxPoint$TotalPoints,decreasing = T)
 library(knitr)
 kable(output, digits=2)
 
-##圖表
+###圖表
 
 |   |Team |Name             | TotalPoints|
 |:--|:----|:----------------|-----------:|
@@ -102,8 +94,8 @@ kable(output, digits=2)
 |14 |LAL  |Jordan Hill      |         841|
 
 
-#各隊最有效率的球員
-##依據總得分除以出戰分鐘數
+##各隊最有效率的球員
+###依據總得分除以出戰分鐘數
 maxe<-aggregate(TotalPoints/TotalMinutesPlayed~Name,NBA1415,max)
 NBA1415Maxe<-merge(NBA1415,maxe)
 output<-NBA1415Maxe[order(NBA1415Maxe$'TotalPoints/TotalMinutesPlayed',decreasing = T),c("Team","Name","TotalPoints/TotalMinutesPlayed")]
@@ -121,7 +113,7 @@ for(team in unique(output$Team)){
 library(knitr)
 kable(outputs, digits=2)
 
-##圖表
+###圖表
 
 |    |Name             |Team | TotalPoints/TotalMinutesPlayed|
 |:---|:----------------|:----|------------------------------:|
@@ -156,8 +148,8 @@ kable(outputs, digits=2)
 |148 |Ersan Ilyasova   |MIL  |                           0.51|
 |246 |John Wall        |WAS  |                           0.49|
 
-#各隊三分球最準的球員
-##依據三分命中數除以三分出手數
+##各隊三分球最準的球員
+###依據三分命中數除以三分出手數
 maxe<-aggregate(ThreesMade/ThreesAttempted~Name,NBA1415,max)
 NBA1415Maxe<-merge(NBA1415,maxe)
 output<-NBA1415Maxe[order(NBA1415Maxe$'ThreesMade/ThreesAttempted',decreasing = T)
@@ -175,7 +167,7 @@ for(team in unique(output$Team)){
 library(knitr)
 kable(outputs, digits=2)
 
-##圖表
+###圖表
 
 |    |Name             |Team | ThreesMade/ThreesAttempted|
 |:---|:----------------|:----|--------------------------:|
